@@ -1,25 +1,6 @@
-<head><meta charset="UTF-8"></head>
-<header>
-<h1> Tu viaje personalizado</h1>
-  </header>
-<main>
-<nav>
-   <ul class="navega">
-  <li><a href="Tuviaje.html">Atrás</a></li>
-     </nav>
- 
-  <p><h3> Aquí puedes rellenar nuestro formulario con tus preferencias:</h3>
-</p>
-     <label for="nombre">Escribe tu  nombre:</label>
- <input type="text" placeholder="Nombre" maxlength="30" name="Nombre">
-  <label for="apellido">Escribe tu apellido:</label>
- <input type="text" placeholder="Apellido" maxlength="30" name="Apellido">
- 
- <label for="email">Email:</label>
- <input type="email" name="email" placeholder="@gmail.com" required> 
   
   <label for="DNI">DNI:</label>
- <input type="DNI" name="DNI" placeholder="DNI" required> 
+ <input type="text" id='DNIUSUARIO'name="DNI" placeholder="DNI" required> 
    
   <p>
     <label>¿Cómo nos ha conocido?</label>
@@ -30,14 +11,20 @@
   <label for="Cuéntanos cual es tu viaje ideal">Cuéntanos cual es tu viaje ideal</label>
   <textarea type="message" name="Escribe tu mensaje" maxlength="300">
 </textarea>
-  <input type="checkbox" required>He leído y acepto <a href="https://www.boe.es/doue/2016/119/L00001-00088.pdf">el aviso legal y la política de privacidad</a>
- <p>
-   <input type="button" value=Enviar>
-  </p>
+<p>  <input type="checkbox" required>He leído y acepto <a href="https://www.boe.es/doue/2016/119/L00001-00088.pdf">el aviso legal y la política de privacidad</a></p>
+ 
+  <button onclick="myFunction()">Enviar</button>
+<p id="verificar"></p>
   </article> 
 </main>
  <style>
-   input[type="text"], input[type="email"],
+ul.navega li {
+  display: inline;
+  padding-right: 0.5em;
+   padding-left: 0.5em;
+}
+</style>
+input[type="text"], input[type="email"],
 input[type="DNI"]{
   border. 1px solid #ccc;
   border-radius: 4px;
@@ -51,6 +38,25 @@ ul.navega li {
 h3{
   padding-top: 1em;
 }
-</style>
 <body style="background-color:#D2EAF4 ">
 </body>
+<script>
+  function calcularLetraDNI(numeroDNI) {
+    var letras = 'TRWAGMYFPDXBNJZSQVHLCKE';
+    var indice = numeroDNI % 23;
+    return letras.charAt(indice);
+}
+function validarDNI(dni) {
+    var dniNumero = dni.substring(0, 8); // Obtener solo los números del DNI
+    var letraIntroducida = dni.charAt(8); // Obtener la letra introducida por el usuario
+    var letraCalculada = calcularLetraDNI(dniNumero); // Calcular la letra correspondiente al número
+ 
+    return letraIntroducida.toUpperCase() === letraCalculada; // Comparar letras (ignorar mayúsculas y minúsculas)
+}
+ var dniUsuario = document.getElementById('DNIUSUARIO').value; // DNI introducido por el usuario
+if (validarDNI(dniUsuario)) {
+    alert("El DNI es válido.");
+} else {
+    alert("El DNI no es válido.");
+}
+</script>
